@@ -11,14 +11,19 @@ const app = express();
 app.use(helmet());
 
 // ── CORS ──────────────────────────────────────────────────────────────────
-const allowedOrigins = (process.env.ALLOWED_ORIGINS || 'http://localhost:5173')
-  .split(',')
-  .map(o => o.trim());
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  ...(process.env.ALLOWED_ORIGINS || '').split(',').map(o => o.trim()).filter(Boolean),
+];
 
 app.use(cors({
   origin: (origin, cb) => {
-    // allow server-to-server / Postman (no origin) in development
-    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+    if (!origin) return cb(null, true); // Postman / server-to-server
+    if (
+      allowedOrigins.includes(origin) ||
+      origin.endsWith('.vercel.app')   // allow all Vercel preview deployments
+    ) return cb(null, true);
     cb(new Error(`CORS: origin ${origin} not allowed`));
   },
   credentials: true,
