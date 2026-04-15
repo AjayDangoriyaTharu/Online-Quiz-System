@@ -209,4 +209,9 @@
   .brandText { font-size: 1rem; }
   .link { padding: 6px 10px; font-size: 0.82rem; }
   .logoutBtn { padding: 6px 12px; font-size: 0.8rem; }
+
+  /* Hide anchor links (Features / How it works) on small screens —
+     only keep Login + Get Started so the navbar doesn't overflow */
+  .linkAnchor { display: none; }
+  .dividerMobile { display: none; }
 }

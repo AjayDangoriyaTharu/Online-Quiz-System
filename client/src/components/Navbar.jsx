@@ -31,9 +31,9 @@ export default function Navbar() {
         {/* ── NOT LOGGED IN ── */}
         {!user && (
           <>
-            <a href="/#features" className={styles.link}>Features</a>
-            <a href="/#how"      className={styles.link}>How it works</a>
-            <div className={styles.divider} />
+            <a href="/#features" className={`${styles.link} ${styles.linkAnchor}`}>Features</a>
+            <a href="/#how"      className={`${styles.link} ${styles.linkAnchor}`}>How it works</a>
+            <div className={`${styles.divider} ${styles.dividerMobile}`} />
             <Link to={ROUTES.LOGIN} className={`${styles.link} ${pathname === ROUTES.LOGIN ? styles.linkActive : ''}`}>
               Login
             </Link>

@@ -361,7 +361,10 @@
   .right {
     width: 100%;
     min-height: 100vh;
+    padding-top: 80px;
     background: linear-gradient(135deg, #0f0c29, #302b63);
+    align-items: flex-start;
+    overflow-y: auto;
   }
   .card { max-width: 420px; }
   .cardTitle { color: #fff; }
@@ -376,5 +379,5 @@
 }
 
 @media (max-width: 480px) {
-  .right { padding: 24px; }
+  .right { padding: 80px 20px 40px; }
 }
