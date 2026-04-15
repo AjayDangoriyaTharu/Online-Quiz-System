@@ -1,0 +1,111 @@
+.heading {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.error {
+  color: #f87171;
+  margin-bottom: 16px;
+}
+
+.empty {
+  text-align: center;
+  padding: 60px 0;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.emptyHint {
+  font-size: 0.85rem;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background: rgba(124, 58, 237, 0.12);
+  color: #a78bfa;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.table td {
+  padding: 14px 16px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+.quizName { font-weight: 600; color: #fff; }
+
+.scoreBadge {
+  padding: 3px 12px;
+  border-radius: 20px;
+  background: rgba(124, 58, 237, 0.15);
+  color: #a78bfa;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 1px solid rgba(124, 58, 237, 0.25);
+}
+
+.percentCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bar {
+  width: 80px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.date {
+  color: rgba(255, 255, 255, 0.35) !important;
+  font-size: 0.82rem !important;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #7c3aed;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 60px auto;
+}
+
+@media (max-width: 640px) {
+  .bar { display: none; }
+}

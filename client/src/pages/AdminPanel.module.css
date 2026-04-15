@@ -1,0 +1,412 @@
+/* ===== PAGE ===== */
+.page {
+  min-height: 100vh;
+  background: #0f0f1a;
+  padding: 32px 0 60px;
+}
+
+/* ===== HEADER ===== */
+.header {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 6px;
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  color: rgba(255,255,255,0.4);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* ===== TOAST ===== */
+.toast {
+  padding: 12px 20px;
+  border-radius: 10px;
+  background: rgba(74, 222, 128, 0.12);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  color: #4ade80;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.toastError {
+  background: rgba(248, 113, 113, 0.12);
+  border-color: rgba(248, 113, 113, 0.3);
+  color: #f87171;
+}
+
+/* ===== TABS ===== */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 28px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 6px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.06);
+}
+
+.tabActive {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(124,58,237,0.4);
+}
+
+/* ===== CONTENT ===== */
+.content {
+  width: 100%;
+}
+
+.tabContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 28px 32px;
+}
+
+.cardTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.count {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+  background: rgba(124,58,237,0.2);
+  color: #a78bfa;
+  border: 1px solid rgba(124,58,237,0.3);
+}
+
+/* ===== FORM ===== */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.3px;
+}
+
+.hint {
+  color: rgba(255,255,255,0.3);
+  font-weight: 400;
+}
+
+.input {
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: rgba(124,58,237,0.6);
+  background: rgba(124,58,237,0.06);
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.1);
+}
+
+.input option {
+  background: #1e1e2e;
+  color: #fff;
+}
+
+.optionsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ===== BUTTONS ===== */
+.btnPrimary {
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  align-self: flex-start;
+  box-shadow: 0 4px 14px rgba(124,58,237,0.35);
+}
+
+.btnPrimary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(124,58,237,0.5);
+}
+
+.btnDelete {
+  padding: 7px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(239,68,68,0.3);
+  background: rgba(239,68,68,0.08);
+  color: #f87171;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btnDelete:hover {
+  background: rgba(239,68,68,0.18);
+  border-color: rgba(239,68,68,0.5);
+}
+
+/* ===== QUIZ LIST ===== */
+.quizList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quizRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: border-color 0.2s;
+}
+
+.quizRow:hover {
+  border-color: rgba(124,58,237,0.25);
+}
+
+.quizInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quizTitle {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.quizMeta {
+  display: flex;
+  gap: 8px;
+}
+
+.pill {
+  font-size: 0.75rem;
+  padding: 2px 10px;
+  border-radius: 20px;
+  background: rgba(124,58,237,0.12);
+  color: #a78bfa;
+  border: 1px solid rgba(124,58,237,0.2);
+}
+
+.pillPin {
+  font-size: 0.75rem;
+  padding: 2px 10px;
+  border-radius: 20px;
+  background: rgba(245,158,11,0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(245,158,11,0.25);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ===== TABLE ===== */
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background: rgba(124,58,237,0.12);
+  color: #a78bfa;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.table td {
+  padding: 14px 16px;
+  color: rgba(255,255,255,0.8);
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover td {
+  background: rgba(255,255,255,0.02);
+}
+
+.topRow td {
+  background: rgba(124,58,237,0.05);
+}
+
+/* ===== TABLE CELLS ===== */
+.userCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.scoreBadge {
+  padding: 3px 12px;
+  border-radius: 20px;
+  background: rgba(124,58,237,0.15);
+  color: #a78bfa;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 1px solid rgba(124,58,237,0.25);
+}
+
+.percentCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.percentBar {
+  width: 80px;
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.percentFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.dateCell {
+  color: rgba(255,255,255,0.4) !important;
+  font-size: 0.82rem !important;
+}
+
+.rank {
+  font-size: 1.2rem;
+}
+
+/* ===== EMPTY STATE ===== */
+.empty {
+  color: rgba(255,255,255,0.3);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 32px 0;
+}
+
+/* ===== SPINNER ===== */
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255,255,255,0.1);
+  border-top-color: #7c3aed;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 32px auto;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .page { padding: 20px 16px 40px; }
+  .card { padding: 20px; }
+  .formRow { grid-template-columns: 1fr; }
+  .optionsGrid { grid-template-columns: 1fr; }
+  .tabs { flex-wrap: wrap; }
+  .tab { flex: unset; }
+  .percentBar { display: none; }
+}

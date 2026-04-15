@@ -1,0 +1,62 @@
+/* ── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Design tokens ─────────────────────────────────────── */
+:root {
+  --color-bg:          #0f0f1a;
+  --color-bg-card:     rgba(255, 255, 255, 0.04);
+  --color-border:      rgba(255, 255, 255, 0.08);
+  --color-text:        #e2e8f0;
+  --color-text-muted:  rgba(255, 255, 255, 0.45);
+  --color-primary:     #7c3aed;
+  --color-primary-lt:  #a78bfa;
+  --color-success:     #10b981;
+  --color-warning:     #f59e0b;
+  --color-danger:      #ef4444;
+  --radius-sm:         8px;
+  --radius-md:         12px;
+  --radius-lg:         20px;
+  --shadow-sm:         0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-md:         0 8px 32px rgba(0, 0, 0, 0.4);
+  --transition:        0.2s ease;
+}
+
+/* ── Base ──────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Links ─────────────────────────────────────────────── */
+a { color: var(--color-primary-lt); }
+
+/* ── Tables ────────────────────────────────────────────── */
+table th,
+table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+table th {
+  background: rgba(124, 58, 237, 0.1);
+  color: var(--color-primary-lt);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ── Animations ────────────────────────────────────────── */
+@keyframes spin    { to { transform: rotate(360deg); } }
+@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeUp  { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }

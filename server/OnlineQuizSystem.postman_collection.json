@@ -1,0 +1,318 @@
+{
+  "info": {
+    "name": "Online Quiz System API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5001/api" },
+    { "key": "token", "value": "" },
+    { "key": "adminToken", "value": "" },
+    { "key": "quizId", "value": "" },
+    { "key": "questionId", "value": "" },
+    { "key": "userId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ajay Tharu\",\n  \"email\": \"ajay@example.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Register Admin",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Admin User\",\n  \"email\": \"admin@example.com\",\n  \"password\": \"admin123\",\n  \"adminSecret\": \"admin@quiz123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.token) {",
+                  "  pm.collectionVariables.set('token', res.token);",
+                  "  pm.collectionVariables.set('userId', res.user.id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ajay@example.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.token) {",
+                  "  pm.collectionVariables.set('adminToken', res.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"admin123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login - Wrong Password",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"ajay@example.com\",\n  \"password\": \"wrongpassword\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Quizzes",
+      "item": [
+        {
+          "name": "Get All Quizzes",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/quizzes", "host": ["{{baseUrl}}"], "path": ["quizzes"] }
+          }
+        },
+        {
+          "name": "Get Quiz By ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/quizzes/{{quizId}}", "host": ["{{baseUrl}}"], "path": ["quizzes", "{{quizId}}"] }
+          }
+        },
+        {
+          "name": "Create Quiz (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.quiz) {",
+                  "  pm.collectionVariables.set('quizId', res.quiz._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/quizzes", "host": ["{{baseUrl}}"], "path": ["quizzes"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"JavaScript Basics\",\n  \"description\": \"Test your JS knowledge\",\n  \"timeLimit\": 10\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Quiz - Student (Should Fail 403)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/quizzes", "host": ["{{baseUrl}}"], "path": ["quizzes"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Unauthorized Quiz\",\n  \"description\": \"Should not be created\",\n  \"timeLimit\": 5\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Quiz (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/quizzes/{{quizId}}", "host": ["{{baseUrl}}"], "path": ["quizzes", "{{quizId}}"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"JavaScript Basics Updated\",\n  \"timeLimit\": 15\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Quiz (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/quizzes/{{quizId}}", "host": ["{{baseUrl}}"], "path": ["quizzes", "{{quizId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Questions",
+      "item": [
+        {
+          "name": "Add Question (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.question) {",
+                  "  pm.collectionVariables.set('questionId', res.question._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/questions", "host": ["{{baseUrl}}"], "path": ["questions"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quizId\": \"{{quizId}}\",\n  \"questionText\": \"What is JavaScript?\",\n  \"options\": [\"Programming Language\", \"Database\", \"Operating System\", \"Compiler\"],\n  \"correctAnswer\": \"Programming Language\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Add Question 2 (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/questions", "host": ["{{baseUrl}}"], "path": ["questions"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quizId\": \"{{quizId}}\",\n  \"questionText\": \"Which company created JavaScript?\",\n  \"options\": [\"Microsoft\", \"Google\", \"Netscape\", \"Apple\"],\n  \"correctAnswer\": \"Netscape\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Questions by Quiz ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/questions/{{quizId}}", "host": ["{{baseUrl}}"], "path": ["questions", "{{quizId}}"] }
+          }
+        },
+        {
+          "name": "Update Question (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/questions/{{questionId}}", "host": ["{{baseUrl}}"], "path": ["questions", "{{questionId}}"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"questionText\": \"What is JavaScript? (Updated)\",\n  \"options\": [\"Programming Language\", \"Database\", \"Operating System\", \"Compiler\"],\n  \"correctAnswer\": \"Programming Language\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Question (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/questions/{{questionId}}", "host": ["{{baseUrl}}"], "path": ["questions", "{{questionId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Results",
+      "item": [
+        {
+          "name": "Submit Quiz",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{baseUrl}}/results/submit", "host": ["{{baseUrl}}"], "path": ["results", "submit"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quizId\": \"{{quizId}}\",\n  \"answers\": {\n    \"QUESTION_ID_1\": \"Programming Language\",\n    \"QUESTION_ID_2\": \"Netscape\"\n  }\n}"
+            }
+          }
+        },
+        {
+          "name": "Get User Results",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/results/user/{{userId}}", "host": ["{{baseUrl}}"], "path": ["results", "user", "{{userId}}"] }
+          }
+        },
+        {
+          "name": "Get All Results (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/results/all", "host": ["{{baseUrl}}"], "path": ["results", "all"] }
+          }
+        },
+        {
+          "name": "Get Leaderboard",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/results/leaderboard/{{quizId}}", "host": ["{{baseUrl}}"], "path": ["results", "leaderboard", "{{quizId}}"] }
+          }
+        }
+      ]
+    }
+  ]
+}
