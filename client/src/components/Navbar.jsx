@@ -47,10 +47,10 @@ export default function Navbar() {
         {user && !isAdmin && (
           <>
             <Link to={ROUTES.DASHBOARD} className={`${styles.link} ${pathname === ROUTES.DASHBOARD ? styles.linkActive : ''}`}>
-              🏠 Dashboard
+              🏠 <span className={styles.linkText}>Dashboard</span>
             </Link>
             <Link to={ROUTES.RESULTS} className={`${styles.link} ${pathname === ROUTES.RESULTS ? styles.linkActive : ''}`}>
-              📊 My Results
+              📊 <span className={styles.linkText}>My Results</span>
             </Link>
             <div className={styles.divider} />
             <div className={styles.userBadge}>

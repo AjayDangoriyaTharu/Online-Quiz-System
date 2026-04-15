@@ -214,4 +214,7 @@
      only keep Login + Get Started so the navbar doesn't overflow */
   .linkAnchor { display: none; }
   .dividerMobile { display: none; }
+
+  /* Shorten student nav link text on very small screens */
+  .linkText { display: none; }
 }

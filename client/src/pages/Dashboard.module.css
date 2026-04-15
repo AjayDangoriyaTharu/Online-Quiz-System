@@ -280,7 +280,17 @@
   box-shadow: 0 6px 20px rgba(124,58,237,0.5);
 }
 
-.btnUnlock:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .heading { font-size: 1.3rem; }
+
+  /* Single column grid on small phones */
+  .grid { grid-template-columns: 1fr; gap: 14px; }
+
+  .card { padding: 18px; }
+
+  /* Modal full width on mobile */
+  .modal { padding: 28px 20px; }
+  .modalTitle { font-size: 1.1rem; }
+  .modalDesc { font-size: 0.82rem; }
 }

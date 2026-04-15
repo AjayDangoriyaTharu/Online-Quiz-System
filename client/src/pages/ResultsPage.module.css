@@ -107,5 +107,21 @@
 }
 
 @media (max-width: 640px) {
+  .heading { font-size: 1.3rem; }
+
+  .table th, .table td { padding: 10px 12px; font-size: 0.82rem; }
+
+  /* Hide progress bar — show % text only */
   .bar { display: none; }
+
+  /* Tighter score badge */
+  .scoreBadge { padding: 2px 8px; font-size: 0.78rem; }
+}
+
+@media (max-width: 480px) {
+  /* Hide date column on very small screens */
+  .table th:last-child,
+  .table td:last-child { display: none; }
+
+  .table th, .table td { padding: 8px 10px; font-size: 0.78rem; }
 }
