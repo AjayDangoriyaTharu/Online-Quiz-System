@@ -4,7 +4,7 @@ const User        = require('../models/User');
 const asyncHandler = require('../utils/asyncHandler');
 
 const generateToken = (id) =>
-  jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+  jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
 // POST /api/auth/register
 const register = asyncHandler(async (req, res) => {

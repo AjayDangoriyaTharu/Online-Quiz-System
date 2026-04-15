@@ -1,6 +1,8 @@
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
 
 const AuthContext = createContext(null);
+
+const SESSION_DURATION = 60 * 60 * 1000; // 1 hour in ms
 
 const isTokenExpired = (token) => {
   try {
@@ -11,14 +13,25 @@ const isTokenExpired = (token) => {
   }
 };
 
+const storage = sessionStorage; // sessionStorage clears when browser/tab is closed
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
     try {
-      const token = localStorage.getItem('token');
-      const stored = localStorage.getItem('user');
+      const token = storage.getItem('token');
+      const stored = storage.getItem('user');
       if (!token || !stored || isTokenExpired(token)) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        storage.removeItem('token');
+        storage.removeItem('user');
+        storage.removeItem('loginTime');
+        return null;
+      }
+      // Check 1-hour session window
+      const loginTime = parseInt(storage.getItem('loginTime') || '0', 10);
+      if (Date.now() - loginTime > SESSION_DURATION) {
+        storage.removeItem('token');
+        storage.removeItem('user');
+        storage.removeItem('loginTime');
         return null;
       }
       return JSON.parse(stored);
@@ -27,17 +40,53 @@ export const AuthProvider = ({ children }) => {
     }
   });
 
+  const timerRef = useRef(null);
+
+  const clearSession = useCallback(() => {
+    storage.removeItem('token');
+    storage.removeItem('user');
+    storage.removeItem('loginTime');
+    setUser(null);
+    if (!window.location.pathname.includes('/login')) {
+      window.location.href = '/login';
+    }
+  }, []);
+
+  // Start / reset the 1-hour auto-logout timer
+  const resetTimer = useCallback(() => {
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(clearSession, SESSION_DURATION);
+  }, [clearSession]);
+
   const login = useCallback((userData, token) => {
-    localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(userData));
+    storage.setItem('token', token);
+    storage.setItem('user', JSON.stringify(userData));
+    storage.setItem('loginTime', Date.now().toString());
     setUser(userData);
   }, []);
 
   const logout = useCallback(() => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    clearTimeout(timerRef.current);
+    storage.removeItem('token');
+    storage.removeItem('user');
+    storage.removeItem('loginTime');
     setUser(null);
   }, []);
+
+  // Auto-logout after 1 hour of inactivity
+  useEffect(() => {
+    if (!user) return;
+
+    resetTimer();
+
+    const events = ['mousedown', 'keydown', 'scroll', 'touchstart'];
+    events.forEach(e => window.addEventListener(e, resetTimer));
+
+    return () => {
+      clearTimeout(timerRef.current);
+      events.forEach(e => window.removeEventListener(e, resetTimer));
+    };
+  }, [user, resetTimer]);
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
